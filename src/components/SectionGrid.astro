@@ -1,0 +1,139 @@
+---
+/**
+ * Homepage grid of handbook sections. Page counts come from the content
+ * collection, so they stay accurate as pages are added — no manual upkeep.
+ */
+import { getCollection } from 'astro:content';
+import { Icon } from '@astrojs/starlight/components';
+import type { StarlightIcon } from '@astrojs/starlight/types';
+import { withBase } from '../lib/paths.ts';
+
+interface Section {
+  title: string;
+  description: string;
+  icon: StarlightIcon;
+  /** Folder under src/content/docs/. */
+  directory: string;
+  /** First page to open, relative to the site root. */
+  href: string;
+}
+
+interface Props {
+  sections: Section[];
+}
+
+const { sections } = Astro.props;
+const docs = await getCollection('docs');
+const countPages = (directory: string) =>
+  docs.filter((entry) => entry.id.startsWith(`${directory}/`)).length;
+---
+
+<ul class="section-grid" role="list">
+  {sections.map(({ title, description, icon, directory, href }) => {
+    const count = countPages(directory);
+    return (
+      <li>
+        <a class="section-card" href={withBase(import.meta.env.BASE_URL, href)}>
+          <span class="section-card__icon">
+            <Icon name={icon} size="1.25rem" />
+          </span>
+          <span class="section-card__body">
+            <span class="section-card__title">{title}</span>
+            <span class="section-card__description">{description}</span>
+            <span class="section-card__count">
+              {count} {count === 1 ? 'page' : 'pages'}
+            </span>
+          </span>
+        </a>
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .section-grid li {
+    margin: 0;
+  }
+
+  .section-card {
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+    padding: 1.25rem;
+    border: 1px solid var(--sl-color-hairline-shade);
+    border-radius: 0.75rem;
+    background: var(--sl-color-bg-nav);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color 150ms ease,
+      transform 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .section-card:hover {
+    border-color: var(--sl-color-accent);
+    box-shadow: var(--sl-shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .section-card:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-card,
+    .section-card:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+
+  .section-card__icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.625rem;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+  }
+
+  .section-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .section-card__title {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-lg);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .section-card__description {
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    line-height: 1.5;
+  }
+
+  .section-card__count {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    color: var(--sl-color-gray-2);
+    font-family: var(--sl-font-mono);
+    font-size: var(--sl-text-xs);
+  }
+</style>

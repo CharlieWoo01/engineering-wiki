@@ -15,7 +15,7 @@ Describes common, well-documented practices. No team-specific workflow has been 
 Short-lived branches are merged into the default branch frequently (ideally within a day or two).
 This keeps integration pain low and pairs naturally with continuous delivery.
 
-```mermaid
+```mermaid title="Short-lived feature branch merged to main"
 gitGraph
   commit
   branch feature/add-runbook

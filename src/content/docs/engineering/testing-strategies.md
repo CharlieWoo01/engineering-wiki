@@ -18,7 +18,7 @@ is a useful default, but the right mix depends on where the risk lives. A static
 site, for example, has little custom logic and benefits most from build-time validation and a
 handful of browser tests.
 
-```mermaid
+```mermaid title="The test pyramid"
 flowchart TB
   E2E["End-to-end — few, slow, high confidence"]
   INT["Integration — some, real dependencies"]

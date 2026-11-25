@@ -19,7 +19,7 @@ The right deployment strategy balances risk, speed and infrastructure cost.
 
 ## Canary rollout
 
-```mermaid
+```mermaid title="Canary rollout with automated analysis"
 flowchart LR
   A[Deploy canary] --> B[5% traffic]
   B --> C{Error rate and latency OK?}

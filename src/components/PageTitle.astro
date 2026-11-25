@@ -1,0 +1,71 @@
+---
+/**
+ * Starlight override: the default page title, followed by the page's
+ * status, owner and review date from frontmatter (when present).
+ */
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import { Badge, Icon } from '@astrojs/starlight/components';
+import { describePageMeta, hasPageMeta, REVIEW_INTERVAL_MONTHS } from '../lib/page-meta.ts';
+
+const meta = describePageMeta(Astro.locals.starlightRoute.entry.data, new Date());
+---
+
+<Default />
+
+{hasPageMeta(meta) && (
+  <ul class="page-meta" aria-label="Page information">
+    {meta.status && (
+      <li>
+        <Badge text={meta.status.label} variant={meta.status.variant} />
+      </li>
+    )}
+    {meta.owner && (
+      <li>
+        <Icon name="comment-alt" size="1rem" />
+        <span>
+          Owner: <strong>{meta.owner}</strong>
+        </span>
+      </li>
+    )}
+    {meta.lastReviewed && (
+      <li>
+        <Icon name="approve-check-circle" size="1rem" />
+        <span>
+          Reviewed <time datetime={meta.lastReviewed.iso}>{meta.lastReviewed.display}</time>
+        </span>
+        {meta.lastReviewed.overdue && (
+          <Badge
+            text="Review due"
+            variant="caution"
+            title={`Not reviewed in the last ${REVIEW_INTERVAL_MONTHS} months`}
+          />
+        )}
+      </li>
+    )}
+  </ul>
+)}
+
+<style>
+  .page-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.25rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+  }
+
+  .page-meta li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .page-meta strong {
+    color: var(--sl-color-gray-2);
+    font-weight: 600;
+  }
+</style>

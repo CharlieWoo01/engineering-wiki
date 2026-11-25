@@ -21,7 +21,7 @@ Write one when a decision:
 
 ## Lifecycle
 
-```mermaid
+```mermaid title="ADR lifecycle"
 stateDiagram-v2
   [*] --> Proposed
   Proposed --> Accepted

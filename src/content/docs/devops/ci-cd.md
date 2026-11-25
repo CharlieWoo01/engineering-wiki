@@ -20,7 +20,7 @@ delivery (CD)** keeps the default branch always releasable and automates the pat
 
 This repository's pipelines are a real, working example.
 
-```mermaid
+```mermaid title="This wiki's CI and deployment pipelines"
 flowchart LR
   subgraph CI["CI — every pull request and push to main"]
     direction TB

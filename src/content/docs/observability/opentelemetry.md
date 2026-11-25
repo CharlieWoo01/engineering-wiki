@@ -23,7 +23,7 @@ once with OTel and send data to any compatible backend.
 
 ## Typical pipeline
 
-```mermaid
+```mermaid title="Telemetry pipeline through an OpenTelemetry Collector"
 flowchart LR
   subgraph Services
     A[Service A<br/>OTel SDK]
@@ -44,7 +44,7 @@ decouples applications from backends and gives one place to batch, sample and re
 
 ## Example: collector configuration
 
-```yaml title="otel-collector.yaml"
+```yaml title="otel-collector.yaml" showLineNumbers
 receivers:
   otlp:
     protocols:

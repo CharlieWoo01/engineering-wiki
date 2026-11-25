@@ -1,22 +1,17 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import mermaid from 'astro-mermaid';
 import starlightLinksValidator from 'starlight-links-validator';
+import starlightLlmsTxt from 'starlight-llms-txt';
 import { satteri } from '@astrojs/markdown-satteri';
+import { SECTIONS } from './src/config/sections.ts';
 import { resolveDeployment } from './src/lib/deployment.ts';
 import { taskListLabels } from './src/lib/task-list-labels.ts';
+import starlightMermaid from './src/plugins/mermaid/index.ts';
 
 const REPOSITORY_URL = 'https://github.com/CharlieWoo01/engineering-wiki';
 
 // `site` and `base` come from SITE_URL / BASE_PATH (see src/lib/deployment.ts).
 const { site, base } = resolveDeployment(process.env);
-
-/** Sidebar group that lists every page in a directory, ordered by `sidebar.order`. */
-const section = (label: string, directory: string, collapsed = false) => ({
-  label,
-  collapsed,
-  items: [{ autogenerate: { directory } }],
-});
 
 // https://astro.build/config
 export default defineConfig({
@@ -34,8 +29,6 @@ export default defineConfig({
     build: { chunkSizeWarningLimit: 1600 },
   },
   integrations: [
-    // Must be registered before Starlight so it can process ```mermaid code blocks.
-    mermaid({ theme: 'default', autoTheme: true }),
     starlight({
       title: 'Engineering Wiki',
       description:
@@ -45,25 +38,36 @@ export default defineConfig({
       social: [{ icon: 'github', label: 'GitHub repository', href: REPOSITORY_URL }],
       editLink: { baseUrl: `${REPOSITORY_URL}/edit/main/` },
       lastUpdated: true,
-      customCss: ['./src/styles/custom.css'],
+      head: [{ tag: 'meta', attrs: { name: 'theme-color', content: '#1a5fc4' } }],
+      customCss: [
+        // Self-hosted variable fonts: no third-party requests.
+        '@fontsource-variable/inter',
+        '@fontsource-variable/jetbrains-mono',
+        './src/styles/custom.css',
+      ],
+      components: {
+        // Adds status, owner and review date under each page title.
+        PageTitle: './src/components/PageTitle.astro',
+      },
       plugins: [
+        // Brand-themed Mermaid diagrams with an expanded view (src/plugins/mermaid).
+        starlightMermaid(),
         // Content uses relative links so it works under any base path (GitHub
         // Pages project site today, a custom domain at "/" tomorrow). Relative
         // links are still resolved and validated, including heading anchors.
         starlightLinksValidator({ errorOnRelativeLinks: false, errorOnLocalLinks: true }),
+        // Publishes /llms.txt so AI assistants can read the wiki efficiently.
+        starlightLlmsTxt({
+          projectName: 'Engineering Wiki',
+          description:
+            'Engineering notes, standards, architecture decision records and runbooks, maintained as code.',
+        }),
       ],
-      sidebar: [
-        section('Getting Started', 'getting-started'),
-        section('Engineering', 'engineering'),
-        section('Platform', 'platform'),
-        section('DevOps', 'devops'),
-        section('Observability', 'observability'),
-        section('Security', 'security'),
-        section('Knowledge Base', 'knowledge-base'),
-        section('Research & Development', 'research'),
-        section('Architecture Decision Records', 'adr', true),
-        section('Runbooks', 'runbooks', true),
-      ],
+      sidebar: SECTIONS.map(({ title, directory, collapsed = false }) => ({
+        label: title,
+        collapsed,
+        items: [{ autogenerate: { directory } }],
+      })),
     }),
   ],
 });

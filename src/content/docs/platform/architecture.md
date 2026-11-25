@@ -19,7 +19,7 @@ versioned and reviewed like code.
 
 ## Illustrative example: system context
 
-```mermaid
+```mermaid title="Illustrative system context"
 flowchart LR
   dev([Engineer]) -->|pushes code| scm[Source control]
   scm -->|triggers| ci[CI/CD pipelines]

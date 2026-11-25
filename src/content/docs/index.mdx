@@ -6,6 +6,10 @@ editUrl: false
 lastUpdated: false
 hero:
   tagline: A single, searchable home for engineering knowledge — written in Markdown, reviewed in pull requests and published automatically.
+  image:
+    alt: ''
+    light: ../../assets/hero-light.svg
+    dark: ../../assets/hero-dark.svg
   actions:
     - text: Get started
       link: getting-started/introduction/
@@ -16,57 +20,13 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import SectionGrid from '../../components/SectionGrid.astro';
+import { SECTIONS } from '../../config/sections.ts';
 
 ## Browse the handbook
 
-<CardGrid>
-  <LinkCard
-    title="Engineering"
-    href="engineering/principles/"
-    description="Principles, coding standards, design patterns, testing and workflows."
-  />
-  <LinkCard
-    title="Platform"
-    href="platform/overview/"
-    description="Platform architecture, infrastructure, developer experience and onboarding."
-  />
-  <LinkCard
-    title="DevOps"
-    href="devops/ci-cd/"
-    description="CI/CD, containers, infrastructure as code and deployment strategies."
-  />
-  <LinkCard
-    title="Observability"
-    href="observability/opentelemetry/"
-    description="OpenTelemetry, logging, metrics, tracing, monitoring and alerting."
-  />
-  <LinkCard
-    title="Security"
-    href="security/principles/"
-    description="Security principles, dependency management and secrets management."
-  />
-  <LinkCard
-    title="Knowledge Base"
-    href="knowledge-base/technical-notes/"
-    description="Technical notes, troubleshooting, useful commands and tips."
-  />
-  <LinkCard
-    title="Research & Development"
-    href="research/proofs-of-concept/"
-    description="Proofs of concept, technology evaluations and experiments."
-  />
-  <LinkCard
-    title="Architecture Decision Records"
-    href="adr/introduction/"
-    description="Significant decisions, their context and their consequences."
-  />
-  <LinkCard
-    title="Runbooks"
-    href="runbooks/introduction/"
-    description="Step-by-step operational procedures for known scenarios."
-  />
-</CardGrid>
+<SectionGrid sections={SECTIONS} />
 
 ## How this wiki works
 

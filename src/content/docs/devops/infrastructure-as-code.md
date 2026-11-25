@@ -23,7 +23,7 @@ tested and reproduced like application code.
 
 ## Typical workflow
 
-```mermaid
+```mermaid title="Pull-request-driven infrastructure changes"
 sequenceDiagram
   participant Dev as Engineer
   participant PR as Pull request
