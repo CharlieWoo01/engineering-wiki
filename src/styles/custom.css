@@ -1,0 +1,41 @@
+/*
+ * Minimal brand layer on top of Starlight's defaults.
+ * Only the accent palette is changed; layout, typography and spacing come from
+ * Starlight so upgrades stay painless. Values chosen for WCAG AA contrast.
+ */
+
+/* Dark mode (Starlight's default theme) */
+:root {
+  --sl-color-accent-low: #102a43;
+  --sl-color-accent: #2f80ed;
+  --sl-color-accent-high: #c4dcfb;
+}
+
+/* Light mode */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d6e6fb;
+  --sl-color-accent: #1a5fc4;
+  --sl-color-accent-high: #0e2f63;
+}
+
+/*
+ * Accessibility fixes found by the axe-core tests (tests/e2e/accessibility.spec.ts).
+ */
+
+/* FileTree comments use gray-3, which is just below 4.5:1 in dark mode. */
+starlight-file-tree .comment {
+  color: var(--sl-color-gray-2);
+}
+
+/* Long inline code (file paths, commands) in table cells otherwise forces
+   tables into a horizontally scrolling region on small screens, which is not
+   keyboard-accessible (axe: scrollable-region-focusable). */
+.sl-markdown-content :is(td, th) code {
+  overflow-wrap: anywhere;
+}
+
+/* Mermaid's dark theme renders edge labels at 4.43:1; Mermaid injects its own
+   ID-scoped styles into each SVG, so !important is needed to override them. */
+:root[data-theme='dark'] pre.mermaid :is(.edgeLabel, .edgeLabel p) {
+  color: #ffffff !important;
+}
