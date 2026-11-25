@@ -58,7 +58,8 @@ Each top-level folder becomes a sidebar group. Nested folders become nested grou
 </FileTree>
 
 Adding a **new top-level section** is the only change that needs configuration: create the folder
-and add one line to the `sidebar` array in `astro.config.ts`.
+and add one entry to `src/config/sections.ts`. That single list drives both the sidebar and the
+section cards on the homepage, whose page counts update automatically.
 
 ## Naming conventions
 
@@ -91,6 +92,10 @@ Frontmatter is validated at build time against Starlight's schema plus a few wik
 
 All other [Starlight frontmatter](https://starlight.astro.build/reference/frontmatter/) fields are
 also available.
+
+`status` (when `draft` or `deprecated`), `owner` and `lastReviewed` are shown under the page
+title. Pages not reviewed for 12 months are flagged **Review due**, so set `lastReviewed` whenever
+you check a page for accuracy.
 
 ```yaml title="Example frontmatter"
 ---
@@ -152,10 +157,11 @@ Variants are `note`, `tip`, `caution` and `danger`.
 ### Code
 
 Fenced code blocks are syntax highlighted and have a copy button. Add a `title` to show a file
-name, and mark lines to draw attention to them:
+name, mark lines to draw attention to them, and add `showLineNumbers` for long listings that
+readers will refer to by line:
 
 ````md
-```ts title="src/example.ts" {2}
+```ts title="src/example.ts" {2} showLineNumbers
 export function greet(name: string) {
   return `Hello, ${name}`;
 }
@@ -164,10 +170,12 @@ export function greet(name: string) {
 
 ### Diagrams
 
-Use fenced `mermaid` code blocks. Diagrams follow the light/dark theme automatically:
+Use fenced `mermaid` code blocks. Diagrams use the wiki's colours, follow the light/dark theme
+and can be opened in a full-screen view with zoom. Always add a `title`: it becomes the
+diagram's caption and its accessible name for screen reader users.
 
 ````md
-```mermaid
+```mermaid title="Pull request flow"
 flowchart LR
   A[Pull request] --> B{CI passes?}
   B -- yes --> C[Merge] --> D[Deploy]

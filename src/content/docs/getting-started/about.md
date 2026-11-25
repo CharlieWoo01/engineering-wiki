@@ -30,7 +30,8 @@ for it to grow into a comprehensive engineering and platform handbook without ne
 | Site framework    | [Astro](https://astro.build/) with [Starlight](https://starlight.astro.build/) |
 | Language          | TypeScript (strict)                                                            |
 | Search            | [Pagefind](https://pagefind.app/), built into Starlight                        |
-| Diagrams          | [Mermaid](https://mermaid.js.org/) via `astro-mermaid`                         |
+| Diagrams          | [Mermaid](https://mermaid.js.org/) via a small built-in Starlight plugin       |
+| AI-readable index | [`llms.txt`](https://llmstxt.org/) via `starlight-llms-txt`                    |
 | Testing           | Vitest, Playwright and axe-core                                                |
 | Hosting and CI/CD | GitHub Pages and GitHub Actions                                                |
 

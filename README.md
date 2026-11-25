@@ -31,18 +31,21 @@ automatically.
 
 ## Technology stack
 
-| Concern            | Choice                                                                                                        |
-| ------------------ | ------------------------------------------------------------------------------------------------------------- |
-| Framework          | [Astro](https://astro.build/) 7 + [Starlight](https://starlight.astro.build/) 0.43                            |
-| Language           | TypeScript 6 (`astro/tsconfigs/strictest`)                                                                    |
-| Runtime            | Node.js 26 LTS (`.nvmrc`; Node.js 24 LTS also supported)                                                      |
-| Package manager    | pnpm 12 (pinned via `packageManager`)                                                                         |
-| Search             | Pagefind (built into Starlight, static, no backend)                                                           |
-| Diagrams           | Mermaid via [`astro-mermaid`](https://github.com/joesaby/astro-mermaid), lazy-loaded                          |
-| Link validation    | [`starlight-links-validator`](https://github.com/HiDeoo/starlight-links-validator) + `scripts/check-links.ts` |
-| Linting/formatting | ESLint (`typescript-eslint` strict), Prettier, markdownlint                                                   |
-| Testing            | Vitest, Playwright, axe-core                                                                                  |
-| CI/CD and hosting  | GitHub Actions, GitHub Pages                                                                                  |
+| Concern            | Choice                                                                                                         |
+| ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Framework          | [Astro](https://astro.build/) 7 + [Starlight](https://starlight.astro.build/) 0.43                             |
+| Language           | TypeScript 6 (`astro/tsconfigs/strictest`)                                                                     |
+| Runtime            | Node.js 26 LTS (`.nvmrc`; Node.js 24 LTS also supported)                                                       |
+| Package manager    | pnpm 12 (pinned via `packageManager`)                                                                          |
+| Search             | Pagefind (built into Starlight, static, no backend)                                                            |
+| Diagrams           | Mermaid via a local Starlight plugin (`src/plugins/mermaid`): brand-themed, captioned, expandable, lazy-loaded |
+| Code blocks        | Expressive Code (built into Starlight) + official line-numbers plugin (`ec.config.mjs`)                        |
+| Typography         | Inter and JetBrains Mono, self-hosted via Fontsource (no third-party requests)                                 |
+| AI-readable output | [`starlight-llms-txt`](https://github.com/delucis/starlight-llms-txt): `/llms.txt`, `/llms-full.txt`           |
+| Link validation    | [`starlight-links-validator`](https://github.com/HiDeoo/starlight-links-validator) + `scripts/check-links.ts`  |
+| Linting/formatting | ESLint (`typescript-eslint` strict), Prettier, markdownlint                                                    |
+| Testing            | Vitest, Playwright, axe-core                                                                                   |
+| CI/CD and hosting  | GitHub Actions, GitHub Pages                                                                                   |
 
 Why Starlight? See [ADR-0002](src/content/docs/adr/0002-use-astro-starlight-for-the-engineering-wiki.md).
 
@@ -107,14 +110,22 @@ src/content/docs/          # Every .md/.mdx file here becomes a page
 ├── adr/                   # Architecture Decision Records
 └── runbooks/              # Operational runbooks
 templates/                 # Page templates (single source, rendered on template pages)
-src/lib/                   # Small, unit-tested logic (deployment config, frontmatter schema, a11y plugin)
+src/config/sections.ts     # Top-level sections: drives the sidebar and the homepage cards
+src/components/            # Starlight overrides and homepage components (PageTitle, SectionGrid)
+src/plugins/mermaid/       # Local Starlight plugin for Mermaid diagrams
+src/styles/custom.css      # Theme layer: fonts, palette, tables, sidebar, hero
+src/lib/                   # Small, unit-tested logic (deployment config, frontmatter, page metadata, a11y plugin)
 scripts/check-links.ts     # Built-output link and asset checker
 tests/unit/ · tests/e2e/   # Vitest and Playwright tests
 ```
 
-- **Sidebar:** each top-level folder is a sidebar group generated automatically
-  (`astro.config.ts`); pages are ordered with `sidebar.order` in frontmatter. A new page in an
-  existing section needs **no configuration**.
+- **Sidebar:** each top-level folder is a sidebar group generated automatically from
+  `src/config/sections.ts`; pages are ordered with `sidebar.order` in frontmatter. A new page in
+  an existing section needs **no configuration**, and homepage page counts update themselves.
+- **Page metadata:** `status` (draft/deprecated), `owner` and `lastReviewed` are shown under each
+  page title; pages not reviewed for 12 months are flagged **Review due**.
+- **Diagrams:** ` ```mermaid title="…" ` blocks render with the wiki's colours, follow light/dark mode
+  and open in a full-screen view with zoom.
 - **Frontmatter:** `title` and `description` are required; `status`, `owner` and `lastReviewed`
   are optional. The schema is in `src/lib/frontmatter.ts` and enforced at build time.
 - **Templates:** technical note, technical guide, ADR, runbook, proof of concept and technology
@@ -132,15 +143,15 @@ and no organisation-specific standards; illustrative content is labelled.
 Proportionate to a static documentation site: most risk is in content and configuration, not
 custom code.
 
-| Layer                     | Tooling                                       | What it covers                                                                                                                   |
-| ------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Static analysis           | TypeScript strictest, ESLint, Prettier        | Config, scripts and tests are type-safe and consistently formatted.                                                              |
-| Content validation        | Astro content schema, markdownlint            | Required frontmatter, valid values, Markdown style.                                                                              |
-| Link and asset validation | `starlight-links-validator`, `check-links.ts` | Broken page links and heading anchors in source; broken links, missing CSS/JS/images and base-path escapes in the build output.  |
-| Unit tests                | Vitest (`tests/unit/`)                        | The only custom logic: deployment config resolution, frontmatter schema, link checker, task-list a11y plugin.                    |
-| End-to-end                | Playwright (`tests/e2e/`), desktop + mobile   | Homepage, page rendering, code copy, Mermaid, templates, sidebar, every sidebar link, search, theme switching, mobile menu, 404. |
-| Accessibility             | axe-core with Playwright                      | WCAG 2.2 A/AA on representative pages in light and dark themes.                                                                  |
-| External links            | lychee (scheduled workflow)                   | Weekly; opens an issue instead of blocking pull requests.                                                                        |
+| Layer                     | Tooling                                       | What it covers                                                                                                                                                                                                                           |
+| ------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Static analysis           | TypeScript strictest, ESLint, Prettier        | Config, scripts and tests are type-safe and consistently formatted.                                                                                                                                                                      |
+| Content validation        | Astro content schema, markdownlint            | Required frontmatter, valid values, Markdown style.                                                                                                                                                                                      |
+| Link and asset validation | `starlight-links-validator`, `check-links.ts` | Broken page links and heading anchors in source; broken links, missing CSS/JS/images and base-path escapes in the build output.                                                                                                          |
+| Unit tests                | Vitest (`tests/unit/`)                        | The custom logic: deployment config, frontmatter schema, page metadata, link checker, Mermaid transform and theming, task-list a11y plugin.                                                                                              |
+| End-to-end                | Playwright (`tests/e2e/`), desktop + mobile   | Homepage and section counts, page rendering and metadata, code copy and line numbers, Mermaid rendering, theme re-render and expanded view, templates, sidebar, every sidebar link, search, theme switching, mobile menu, 404, llms.txt. |
+| Accessibility             | axe-core with Playwright                      | WCAG 2.2 A/AA on representative pages and the expanded diagram view, in light and dark themes.                                                                                                                                           |
+| External links            | lychee (scheduled workflow)                   | Weekly; opens an issue instead of blocking pull requests.                                                                                                                                                                                |
 
 E2E tests run against the **production build** served by `astro preview` under the real
 `/engineering-wiki/` base path, so they also verify GitHub Pages compatibility. Tests use only
