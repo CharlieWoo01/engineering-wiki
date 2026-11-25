@@ -36,9 +36,26 @@ test.describe('Documentation pages', () => {
     await page.goto('engineering/coding-standards/');
     await expect(page.getByRole('list', { name: 'Page information' })).toContainText('Draft');
 
-    // Published pages without an owner show no metadata row.
+    // Every content page shows an estimated reading time.
     await page.goto('devops/deployment-strategies/');
-    await expect(page.getByRole('list', { name: 'Page information' })).toHaveCount(0);
+    await expect(page.getByRole('list', { name: 'Page information' })).toContainText(
+      /\d+ min read/,
+    );
+  });
+
+  test('pages link to social preview images', async ({ page, request }) => {
+    await page.goto('observability/opentelemetry/');
+    const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+    expect(image).toMatch(/\/og\/observability\/opentelemetry\.png$/);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+      'content',
+      'summary_large_image',
+    );
+
+    // The absolute URL points at production; fetch the same path from the preview server.
+    const response = await request.get(new URL(image ?? '').pathname);
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toContain('image/png');
   });
 
   test('line numbers can be enabled per code block', async ({ page }) => {

@@ -10,6 +10,8 @@ const PAGES = [
   { name: 'ADR', path: 'adr/0002-use-astro-starlight-for-the-engineering-wiki/' },
   { name: 'runbook with checklists', path: 'runbooks/rollback-github-pages-deployment/' },
   { name: '404 page', path: 'this-page-does-not-exist/' },
+  { name: 'tag index', path: 'tags/' },
+  { name: 'documentation health', path: 'health/' },
 ];
 
 /**
