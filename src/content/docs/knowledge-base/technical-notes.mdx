@@ -1,0 +1,36 @@
+---
+title: Technical notes
+description: Short, focused write-ups of things learned, with the template for writing new notes.
+sidebar:
+  order: 1
+---
+
+import { Code, LinkCard } from '@astrojs/starlight/components';
+import noteTemplate from '../../../../templates/technical-note.md?raw';
+
+Technical notes capture something you learned — a fix, a gotcha, a useful technique — while it is
+fresh. They are short, specific and link to primary sources.
+
+## When to write a note
+
+- You spent more than half an hour working something out.
+- You answered the same question twice.
+- You found official documentation incomplete or misleading.
+
+Longer, step-by-step material belongs in a guide (see
+[Contributing](../../getting-started/contributing/#templates)); a decision belongs in an
+[ADR](../../adr/introduction/).
+
+## Notes
+
+<LinkCard
+  title="Running TypeScript scripts with Node.js type stripping"
+  href="../node-typescript-type-stripping/"
+  description="Run .ts tooling scripts directly with Node.js — no build step or extra dependency."
+/>
+
+## Template
+
+Copy `templates/technical-note.md` into `src/content/docs/knowledge-base/`:
+
+<Code code={noteTemplate} lang="md" title="templates/technical-note.md" />

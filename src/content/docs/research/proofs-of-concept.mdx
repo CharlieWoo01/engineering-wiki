@@ -1,0 +1,34 @@
+---
+title: Proofs of concept
+description: How proofs of concept are planned, timeboxed and reported, with the PoC template.
+sidebar:
+  order: 1
+---
+
+import { Code, LinkCard } from '@astrojs/starlight/components';
+import pocTemplate from '../../../../templates/proof-of-concept.md?raw';
+
+A proof of concept (PoC) answers a specific question — "can this work for us?" — with the least
+effort possible. It is timeboxed, disposable and judged against success criteria agreed up front.
+
+## Guidelines
+
+- **Start with a hypothesis** and measurable success criteria.
+- **Timebox it.** When time runs out, report what you have.
+- **Be explicit about shortcuts.** A PoC is not production-ready; say what would need to change.
+- **Record the outcome**, including failures — a disproven idea is a useful result.
+- **Follow up with an ADR** if the PoC leads to a decision.
+
+## Proofs of concept
+
+<LinkCard
+  title="PoC: Engineering Wiki on Astro Starlight"
+  href="../engineering-wiki-poc/"
+  description="Whether a docs-as-code wiki on Starlight and GitHub Pages meets our needs."
+/>
+
+## Template
+
+Copy `templates/proof-of-concept.md` into `src/content/docs/research/`:
+
+<Code code={pocTemplate} lang="md" title="templates/proof-of-concept.md" />

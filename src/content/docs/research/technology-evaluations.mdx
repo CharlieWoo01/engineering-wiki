@@ -1,0 +1,31 @@
+---
+title: Technology evaluations
+description: How technology options are compared against weighted requirements, with the template.
+sidebar:
+  order: 3
+---
+
+import { Code } from '@astrojs/starlight/components';
+import evaluationTemplate from '../../../../templates/technology-evaluation.md?raw';
+
+A technology evaluation compares candidate tools or services against explicit, weighted
+requirements so that choices are evidence-based and the reasoning outlives the people involved.
+
+## Process
+
+1. **Define the problem** and what happens if nothing changes.
+2. **Agree requirements** and weight them before looking at options, to avoid bias.
+3. **Shortlist options**, including "do nothing" or "build it ourselves" where relevant.
+4. **Gather evidence** — documentation, hands-on trials, a [proof of concept](../proofs-of-concept/).
+5. **Score and recommend**, explaining the trade-offs.
+6. **Record the decision** as an [ADR](../../adr/introduction/), linking back to the evaluation.
+
+## Evaluations
+
+No evaluations have been published yet.
+
+## Template
+
+Copy `templates/technology-evaluation.md` into `src/content/docs/research/`:
+
+<Code code={evaluationTemplate} lang="md" title="templates/technology-evaluation.md" />
