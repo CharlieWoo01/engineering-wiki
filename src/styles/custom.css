@@ -1,41 +1,259 @@
 /*
- * Minimal brand layer on top of Starlight's defaults.
- * Only the accent palette is changed; layout, typography and spacing come from
- * Starlight so upgrades stay painless. Values chosen for WCAG AA contrast.
+ * Engineering Wiki theme — a light brand layer on top of Starlight.
+ *
+ * Starlight's styles live in cascade layers, so these unlayered rules win
+ * without !important. Layout, spacing and components stay Starlight's, which
+ * keeps upgrades painless. Colour pairs are chosen for WCAG AA contrast and
+ * verified by the axe tests in tests/e2e/accessibility.spec.ts.
  */
 
-/* Dark mode (Starlight's default theme) */
+/* ---------- Typography (self-hosted fonts, see astro.config.ts) ---------- */
+
+:root {
+  --sl-font:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sl-font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sl-text-h1: 2.25rem;
+  --sl-text-h2: 1.625rem;
+  --sl-text-h3: 1.25rem;
+  --sl-text-h4: 1.0625rem;
+  --sl-line-height-headings: 1.25;
+  --sl-content-width: 48rem;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+@media (min-width: 72rem) {
+  :root {
+    --sl-text-h1: 2.5rem;
+  }
+}
+
+/* ---------- Colour (dark is Starlight's default theme) ---------- */
+
 :root {
   --sl-color-accent-low: #102a43;
   --sl-color-accent: #2f80ed;
   --sl-color-accent-high: #c4dcfb;
+  --wiki-surface: #1b1e26;
 }
 
-/* Light mode */
 :root[data-theme='light'] {
-  --sl-color-accent-low: #d6e6fb;
+  --sl-color-accent-low: #e3edfc;
   --sl-color-accent: #1a5fc4;
   --sl-color-accent-high: #0e2f63;
+  --wiki-surface: #f7f8fa;
 }
 
-/*
- * Accessibility fixes found by the axe-core tests (tests/e2e/accessibility.spec.ts).
- */
+/* ---------- Header ---------- */
 
-/* FileTree comments use gray-3, which is just below 4.5:1 in dark mode. */
-starlight-file-tree .comment {
-  color: var(--sl-color-gray-2);
+.header {
+  border-bottom: 1px solid var(--sl-color-hairline-shade);
+  background-color: color-mix(in srgb, var(--sl-color-bg-nav) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(8px);
 }
 
-/* Long inline code (file paths, commands) in table cells otherwise forces
-   tables into a horizontally scrolling region on small screens, which is not
-   keyboard-accessible (axe: scrollable-region-focusable). */
+.site-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Sidebar ---------- */
+
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-accent-high);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--sl-color-accent);
+}
+
+.sidebar-content summary .group-label {
+  font-size: var(--sl-text-sm);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Page title and headings ---------- */
+
+.content-panel h1,
+.sl-markdown-content :is(h1, h2, h3, h4) {
+  letter-spacing: -0.02em;
+}
+
+.content-panel h1 {
+  font-weight: 700;
+}
+
+.sl-markdown-content h2 {
+  font-weight: 650;
+}
+
+/* Section divider above each h2 (on the block-level heading wrapper, since
+   Starlight renders the heading itself inline next to its anchor link). */
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sl-color-hairline);
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h2:first-child,
+[data-has-hero] .sl-markdown-content .sl-heading-wrapper.level-h2 {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h2:first-child {
+  margin-top: 0;
+}
+
+.sl-markdown-content h3 {
+  font-weight: 600;
+}
+
+/* ---------- Links ---------- */
+
+.sl-markdown-content a:not(:where(.not-content *, .card, .sl-link-card, .section-card)) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  text-decoration-color: currentColor;
+}
+
+/* ---------- Inline code and keyboard keys ---------- */
+
+.sl-markdown-content :not(pre) > code {
+  padding: 0.125em 0.375em;
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 0.375rem;
+  background-color: var(--wiki-surface);
+  font-size: 0.875em;
+}
+
+.sl-markdown-content kbd,
+.hero kbd {
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.05em 0.4em;
+  border: 1px solid var(--sl-color-gray-5);
+  border-bottom-width: 2px;
+  border-radius: 0.375rem;
+  background-color: var(--wiki-surface);
+  font-family: var(--sl-font-mono);
+  font-size: 0.8em;
+  text-align: center;
+}
+
+/* ---------- Tables ---------- */
+
+/* Starlight renders tables as scrollable blocks, so style the cells rather
+   than the table box (an outer border would not line up with the cells). */
+.sl-markdown-content table {
+  font-size: var(--sl-text-sm);
+}
+
+.sl-markdown-content :is(th, td) {
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+.sl-markdown-content th {
+  border-bottom: 2px solid var(--sl-color-gray-5);
+  background-color: var(--wiki-surface);
+  color: var(--sl-color-white);
+  font-weight: 600;
+  text-align: start;
+}
+
+.sl-markdown-content th:first-child {
+  border-start-start-radius: 0.5rem;
+}
+
+.sl-markdown-content th:last-child {
+  border-start-end-radius: 0.5rem;
+}
+
+.sl-markdown-content tbody tr:hover td {
+  background-color: color-mix(in srgb, var(--sl-color-accent-low) 35%, transparent);
+}
+
+/* Long inline code (paths, commands) in cells would otherwise force tables
+   into a horizontal scroll region that keyboards cannot reach on mobile. */
 .sl-markdown-content :is(td, th) code {
   overflow-wrap: anywhere;
 }
 
-/* Mermaid's dark theme renders edge labels at 4.43:1; Mermaid injects its own
-   ID-scoped styles into each SVG, so !important is needed to override them. */
-:root[data-theme='dark'] pre.mermaid :is(.edgeLabel, .edgeLabel p) {
-  color: #ffffff !important;
+/* ---------- Asides ---------- */
+
+.starlight-aside {
+  border-inline-start-width: 4px;
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.starlight-aside__title {
+  font-weight: 650;
+}
+
+/* ---------- Cards, link cards and pagination ---------- */
+
+.card,
+.sl-link-card,
+.pagination-links a {
+  border-radius: 0.75rem;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.sl-link-card:hover,
+.pagination-links a:hover {
+  box-shadow: var(--sl-shadow-sm);
+}
+
+/* ---------- Homepage hero ---------- */
+
+[data-has-hero] .main-frame {
+  background:
+    radial-gradient(
+      60rem 30rem at 85% -10%,
+      color-mix(in srgb, var(--sl-color-accent) 14%, transparent),
+      transparent 70%
+    ),
+    var(--sl-color-bg);
+}
+
+.hero h1 {
+  letter-spacing: -0.035em;
+  font-weight: 750;
+}
+
+.hero .tagline {
+  max-width: 34rem;
+  color: var(--sl-color-gray-2);
+}
+
+/* ---------- Starlight component fixes found by axe ---------- */
+
+/* FileTree comments use gray-3, just below 4.5:1 in dark mode. */
+starlight-file-tree .comment {
+  color: var(--sl-color-gray-2);
+}
+
+/* ---------- Focus and motion ---------- */
+
+:focus-visible {
+  outline-color: var(--sl-color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
