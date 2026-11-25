@@ -41,6 +41,7 @@ automatically.
 | Diagrams           | Mermaid via a local Starlight plugin (`src/plugins/mermaid`): brand-themed, captioned, expandable, lazy-loaded |
 | Code blocks        | Expressive Code (built into Starlight) + official line-numbers plugin (`ec.config.mjs`)                        |
 | Typography         | Inter and JetBrains Mono, self-hosted via Fontsource (no third-party requests)                                 |
+| Social previews    | [`astro-og-canvas`](https://github.com/delucis/astro-og-canvas): a 1200×630 card per page, built offline       |
 | AI-readable output | [`starlight-llms-txt`](https://github.com/delucis/starlight-llms-txt): `/llms.txt`, `/llms-full.txt`           |
 | Link validation    | [`starlight-links-validator`](https://github.com/HiDeoo/starlight-links-validator) + `scripts/check-links.ts`  |
 | Linting/formatting | ESLint (`typescript-eslint` strict), Prettier, markdownlint                                                    |
@@ -122,10 +123,15 @@ tests/unit/ · tests/e2e/   # Vitest and Playwright tests
 - **Sidebar:** each top-level folder is a sidebar group generated automatically from
   `src/config/sections.ts`; pages are ordered with `sidebar.order` in frontmatter. A new page in
   an existing section needs **no configuration**, and homepage page counts update themselves.
-- **Page metadata:** `status` (draft/deprecated), `owner` and `lastReviewed` are shown under each
+- **Page metadata:** `status` (draft/deprecated), `owner`, `lastReviewed`, reading time and tags are shown under each
   page title; pages not reviewed for 12 months are flagged **Review due**.
 - **Diagrams:** ` ```mermaid title="…" ` blocks render with the wiki's colours, follow light/dark mode
   and open in a full-screen view with zoom.
+- **Tags:** add `tags: [security, ci-cd]` to frontmatter; every tag gets a page under `/tags/`.
+- **Documentation health:** `/health/` lists drafts, overdue reviews and pages without an owner,
+  review date or tags, rebuilt on every deploy.
+- **Social previews:** each page gets an Open Graph image (`/og/<page>.png`) so links shared in chat
+  tools show a branded card.
 - **Frontmatter:** `title` and `description` are required; `status`, `owner` and `lastReviewed`
   are optional. The schema is in `src/lib/frontmatter.ts` and enforced at build time.
 - **Templates:** technical note, technical guide, ADR, runbook, proof of concept and technology
@@ -143,15 +149,15 @@ and no organisation-specific standards; illustrative content is labelled.
 Proportionate to a static documentation site: most risk is in content and configuration, not
 custom code.
 
-| Layer                     | Tooling                                       | What it covers                                                                                                                                                                                                                           |
-| ------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Static analysis           | TypeScript strictest, ESLint, Prettier        | Config, scripts and tests are type-safe and consistently formatted.                                                                                                                                                                      |
-| Content validation        | Astro content schema, markdownlint            | Required frontmatter, valid values, Markdown style.                                                                                                                                                                                      |
-| Link and asset validation | `starlight-links-validator`, `check-links.ts` | Broken page links and heading anchors in source; broken links, missing CSS/JS/images and base-path escapes in the build output.                                                                                                          |
-| Unit tests                | Vitest (`tests/unit/`)                        | The custom logic: deployment config, frontmatter schema, page metadata, link checker, Mermaid transform and theming, task-list a11y plugin.                                                                                              |
-| End-to-end                | Playwright (`tests/e2e/`), desktop + mobile   | Homepage and section counts, page rendering and metadata, code copy and line numbers, Mermaid rendering, theme re-render and expanded view, templates, sidebar, every sidebar link, search, theme switching, mobile menu, 404, llms.txt. |
-| Accessibility             | axe-core with Playwright                      | WCAG 2.2 A/AA on representative pages and the expanded diagram view, in light and dark themes.                                                                                                                                           |
-| External links            | lychee (scheduled workflow)                   | Weekly; opens an issue instead of blocking pull requests.                                                                                                                                                                                |
+| Layer                     | Tooling                                       | What it covers                                                                                                                                                                                                                                                                      |
+| ------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Static analysis           | TypeScript strictest, ESLint, Prettier        | Config, scripts and tests are type-safe and consistently formatted.                                                                                                                                                                                                                 |
+| Content validation        | Astro content schema, markdownlint            | Required frontmatter, valid values, Markdown style.                                                                                                                                                                                                                                 |
+| Link and asset validation | `starlight-links-validator`, `check-links.ts` | Broken page links and heading anchors in source; broken links, missing CSS/JS/images and base-path escapes in the build output.                                                                                                                                                     |
+| Unit tests                | Vitest (`tests/unit/`)                        | The custom logic: deployment config, frontmatter schema, page metadata, tags, reading time, health report, link checker, Mermaid transform and theming, task-list a11y plugin.                                                                                                      |
+| End-to-end                | Playwright (`tests/e2e/`), desktop + mobile   | Homepage and section counts, page rendering and metadata, code copy and line numbers, Mermaid rendering, theme re-render and expanded view, templates, sidebar, every sidebar link, search, theme switching, mobile menu, 404, llms.txt, tags, documentation health, social images. |
+| Accessibility             | axe-core with Playwright                      | WCAG 2.2 A/AA on representative pages and the expanded diagram view, in light and dark themes.                                                                                                                                                                                      |
+| External links            | lychee (scheduled workflow)                   | Weekly; opens an issue instead of blocking pull requests.                                                                                                                                                                                                                           |
 
 E2E tests run against the **production build** served by `astro preview` under the real
 `/engineering-wiki/` base path, so they also verify GitHub Pages compatibility. Tests use only
@@ -279,7 +285,8 @@ Potential enhancements, deliberately **not** implemented yet:
 - **Platform handbook and engineering standards:** replace draft pages with agreed content.
 - **Team-specific documentation:** per-team folders as nested sidebar groups.
 - **Documentation ownership:** `CODEOWNERS` and use of the `owner` frontmatter field.
-- **Documentation quality reporting:** stale-page reports from `lastReviewed` and `status`.
+- **Documentation quality reporting:** the `/health/` page covers the basics; next steps could
+  include notifying owners of overdue pages or tracking trends over time.
 - **Service catalogue:** generated from structured data, or integration with a developer portal.
 - **Versioned documentation:** for example the
   [`starlight-versions`](https://github.com/HiDeoo/starlight-versions) plugin.
