@@ -1,0 +1,29 @@
+---
+title: ADR template
+description: The template for new Architecture Decision Records, with guidance on each section.
+sidebar:
+  order: 2
+  label: Template
+---
+
+import { Code } from '@astrojs/starlight/components';
+import adrTemplate from '../../../../templates/adr.md?raw';
+
+## How to use the template
+
+1. Copy `templates/adr.md` to `src/content/docs/adr/NNNN-short-title.md`.
+2. Replace `NNNN` with the next number, zero-padded to four digits.
+3. Replace every italic prompt. Delete sections that genuinely do not apply.
+4. Add the new ADR to the index on the [introduction page](../introduction/#index).
+
+| Section            | Guidance                                                                |
+| ------------------ | ----------------------------------------------------------------------- |
+| Context            | Facts and forces, written neutrally. Someone new should understand it.  |
+| Decision drivers   | The criteria used to judge the options.                                 |
+| Considered options | At least two credible options, including the status quo where relevant. |
+| Decision           | "We will …" — specific and in the active voice.                         |
+| Consequences       | Both positive and negative. Be honest about the costs.                  |
+
+## Template
+
+<Code code={adrTemplate} lang="md" title="templates/adr.md" />

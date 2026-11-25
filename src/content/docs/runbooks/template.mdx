@@ -1,0 +1,22 @@
+---
+title: Runbook template
+description: The template for new operational runbooks, with guidance on writing each section.
+sidebar:
+  order: 2
+  label: Template
+---
+
+import { Code } from '@astrojs/starlight/components';
+import runbookTemplate from '../../../../templates/runbook.md?raw';
+
+## How to use the template
+
+1. Copy `templates/runbook.md` to `src/content/docs/runbooks/verb-phrase-describing-task.md`.
+2. Fill in the summary table first: if you cannot name the trigger, the runbook lacks focus.
+3. Write diagnosis and resolution steps as numbered lists with complete commands.
+4. Ask someone unfamiliar with the system to dry-run it, and fix what confused them.
+5. Add it to the index on the [introduction page](../introduction/#index).
+
+## Template
+
+<Code code={runbookTemplate} lang="md" title="templates/runbook.md" />
