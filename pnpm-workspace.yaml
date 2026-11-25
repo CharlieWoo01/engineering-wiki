@@ -1,0 +1,5 @@
+# pnpm settings (pnpm 11+ reads project settings from this file).
+
+# Supply-chain protection: do not install package versions published less than
+# 24 hours ago, giving the registry time to catch compromised releases.
+minimumReleaseAge: 1440

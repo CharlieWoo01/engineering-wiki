@@ -1,0 +1,21 @@
+{
+  // https://github.com/DavidAnson/markdownlint-cli2
+  "config": {
+    // Prettier owns whitespace and wrapping; disable rules that conflict with it.
+    "extends": "markdownlint/style/prettier",
+    "default": true,
+    // Starlight renders the frontmatter `title` as the page <h1>, so pages
+    // start at h2 and must not contain their own h1.
+    "MD025": { "front_matter_title": "^\\s*title\\s*[:=]" },
+    "MD041": false,
+    // MDX pages use components (<Card>, <Code>, …), which look like inline HTML.
+    "MD033": false,
+    // Allow repeated headings in different sections (e.g. "Context" in templates).
+    "MD024": { "siblings_only": true },
+    // Long lines are fine in prose; Prettier preserves author wrapping.
+    "MD013": false,
+  },
+  "globs": ["**/*.{md,mdx}"],
+  "ignores": ["node_modules/**", "dist/**", ".astro/**", "playwright-report/**", "test-results/**"],
+  "gitignore": true,
+}
