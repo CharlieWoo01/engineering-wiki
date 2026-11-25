@@ -1,18 +1,23 @@
 ---
 /**
- * Starlight override: the default page title, followed by the page's
- * status, owner and review date from frontmatter (when present).
+ * Starlight override: the default page title, followed by the page's status,
+ * owner, review date and reading time, and its tags.
  */
 import Default from '@astrojs/starlight/components/PageTitle.astro';
 import { Badge, Icon } from '@astrojs/starlight/components';
+import TagLinks from './TagLinks.astro';
+import { readingMinutes } from '../lib/docs-index.ts';
 import { describePageMeta, hasPageMeta, REVIEW_INTERVAL_MONTHS } from '../lib/page-meta.ts';
 
-const meta = describePageMeta(Astro.locals.starlightRoute.entry.data, new Date());
+const { entry } = Astro.locals.starlightRoute;
+const meta = describePageMeta(entry.data, new Date());
+const minutes = readingMinutes(entry.body);
+const showMeta = hasPageMeta(meta) || minutes > 0;
 ---
 
 <Default />
 
-{hasPageMeta(meta) && (
+{showMeta && (
   <ul class="page-meta" aria-label="Page information">
     {meta.status && (
       <li>
@@ -42,7 +47,19 @@ const meta = describePageMeta(Astro.locals.starlightRoute.entry.data, new Date()
         )}
       </li>
     )}
+    {minutes > 0 && (
+      <li>
+        <Icon name="clock" size="1rem" />
+        <span>{minutes} min read</span>
+      </li>
+    )}
   </ul>
+)}
+
+{entry.data.tags.length > 0 && (
+  <div class="page-tags">
+    <TagLinks tags={entry.data.tags} />
+  </div>
 )}
 
 <style>
@@ -67,5 +84,9 @@ const meta = describePageMeta(Astro.locals.starlightRoute.entry.data, new Date()
   .page-meta strong {
     color: var(--sl-color-gray-2);
     font-weight: 600;
+  }
+
+  .page-tags {
+    margin-top: 0.75rem;
   }
 </style>

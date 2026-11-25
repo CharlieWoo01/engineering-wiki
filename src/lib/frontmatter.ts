@@ -21,6 +21,16 @@ export const wikiFrontmatter = z.object({
   owner: z.string().trim().min(1).optional(),
   /** Date the content was last reviewed for accuracy (YYYY-MM-DD). */
   lastReviewed: z.coerce.date().optional(),
+  /** Cross-cutting topics, shown under the title and listed at /tags/. */
+  tags: z
+    .array(
+      z
+        .string()
+        .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'tags must be lowercase kebab-case, e.g. "ci-cd"'),
+    )
+    .max(6, 'use at most 6 tags per page')
+    .refine((tags) => new Set(tags).size === tags.length, 'tags must be unique')
+    .default([]),
 });
 
 export type WikiFrontmatter = z.infer<typeof wikiFrontmatter>;

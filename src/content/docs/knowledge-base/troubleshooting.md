@@ -1,6 +1,7 @@
 ---
 title: Troubleshooting
 description: Known problems and fixes, starting with issues you may hit when working on this wiki.
+tags: [documentation, github-actions]
 sidebar:
   order: 3
 ---

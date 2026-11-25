@@ -1,6 +1,7 @@
 ---
 title: Infrastructure as Code
 description: Principles and workflow for managing infrastructure declaratively through version control.
+tags: [infrastructure, ci-cd]
 status: draft
 sidebar:
   order: 3

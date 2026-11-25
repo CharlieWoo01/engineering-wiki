@@ -1,6 +1,7 @@
 ---
 title: Dependency management
 description: Keeping third-party dependencies minimal, pinned, current and free of known vulnerabilities.
+tags: [security, supply-chain]
 sidebar:
   order: 2
 ---

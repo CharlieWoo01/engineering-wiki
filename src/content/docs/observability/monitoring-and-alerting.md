@@ -1,6 +1,7 @@
 ---
 title: Monitoring and alerting
 description: Symptom-based alerting, SLOs and error budgets, and keeping alerts actionable.
+tags: [observability, reliability]
 status: draft
 sidebar:
   order: 5

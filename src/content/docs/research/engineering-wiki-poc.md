@@ -1,6 +1,7 @@
 ---
 title: 'PoC: Engineering Wiki on Astro Starlight'
 description: Whether a docs-as-code wiki on Starlight and GitHub Pages meets our needs.
+tags: [research, documentation]
 status: published
 lastReviewed: 2026-11-25
 sidebar:

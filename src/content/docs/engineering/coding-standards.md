@@ -1,6 +1,7 @@
 ---
 title: Coding standards
 description: How coding standards should be defined and enforced, with general starting points.
+tags: [code-quality, typescript]
 status: draft
 sidebar:
   order: 2

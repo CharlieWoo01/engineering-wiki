@@ -1,0 +1,65 @@
+---
+/** A compact list of wiki pages: linked title, description and optional detail. */
+import type { DocSummary } from '../lib/docs-index.ts';
+import { withBase } from '../lib/paths.ts';
+
+interface Props {
+  pages: readonly DocSummary[];
+  /** Optional extra text per page, e.g. a review date. */
+  detail?: (page: DocSummary) => string | undefined;
+  empty?: string;
+}
+
+const { pages, detail, empty = 'Nothing to show.' } = Astro.props;
+---
+
+{pages.length === 0 ? (
+  <p class="doc-list__empty">{empty}</p>
+) : (
+  <ul class="doc-list">
+    {pages.map((page) => {
+      const extra = detail?.(page);
+      return (
+        <li>
+          <a href={withBase(import.meta.env.BASE_URL, `${page.id}/`)}>{page.title}</a>
+          {extra && <span class="doc-list__detail">{extra}</span>}
+          <p>{page.description}</p>
+        </li>
+      );
+    })}
+  </ul>
+)}
+
+<style>
+  .doc-list {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .doc-list li {
+    margin: 0;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+
+  .doc-list a {
+    font-weight: 600;
+  }
+
+  .doc-list__detail {
+    margin-inline-start: 0.5rem;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+  }
+
+  .doc-list p {
+    margin: 0.25rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+  }
+
+  .doc-list__empty {
+    color: var(--sl-color-gray-3);
+  }
+</style>

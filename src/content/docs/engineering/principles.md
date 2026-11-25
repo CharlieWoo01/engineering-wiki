@@ -1,6 +1,7 @@
 ---
 title: Engineering principles
 description: Widely accepted engineering principles to use as a starting point for agreed team principles.
+tags: [architecture, reliability]
 status: draft
 sidebar:
   order: 1

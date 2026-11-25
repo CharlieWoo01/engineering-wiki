@@ -1,6 +1,7 @@
 ---
 title: Logging
 description: Structured logging practices, log levels and what never to log.
+tags: [observability, security]
 status: draft
 sidebar:
   order: 2

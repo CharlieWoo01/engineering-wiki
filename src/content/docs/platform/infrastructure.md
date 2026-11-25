@@ -1,6 +1,7 @@
 ---
 title: Infrastructure
 description: Structure for documenting environments, cloud resources and their ownership.
+tags: [platform, infrastructure]
 status: draft
 sidebar:
   order: 3

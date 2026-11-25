@@ -1,6 +1,7 @@
 ---
 title: 'Runbook: Roll back a GitHub Pages deployment'
 description: Restore the Engineering Wiki to a previous good version after a bad deployment.
+tags: [operations, deployment, github-actions]
 owner: Wiki maintainers
 lastReviewed: 2026-11-25
 sidebar:

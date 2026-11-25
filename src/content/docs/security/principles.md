@@ -1,6 +1,7 @@
 ---
 title: Security principles
 description: Foundational security principles to guide design and delivery decisions.
+tags: [security]
 status: draft
 sidebar:
   order: 1

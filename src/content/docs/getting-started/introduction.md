@@ -1,6 +1,7 @@
 ---
 title: Introduction
 description: What the Engineering Wiki is, who it is for and how to find your way around.
+tags: [documentation, onboarding]
 sidebar:
   order: 1
 ---

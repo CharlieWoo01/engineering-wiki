@@ -1,6 +1,7 @@
 ---
 title: 'ADR-0002: Use Astro Starlight for the Engineering Wiki'
 description: We will build the Engineering Wiki with Astro Starlight and host it on GitHub Pages.
+tags: [decision-making, documentation]
 sidebar:
   order: 4
   label: '0002: Use Astro Starlight'

@@ -1,6 +1,7 @@
 ---
 title: Platform overview
 description: What the internal platform section will document and how its pages fit together.
+tags: [platform]
 status: draft
 sidebar:
   order: 1

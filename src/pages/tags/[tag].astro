@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from 'astro';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import DocList from '../../components/DocList.astro';
+import { groupByTag, type TagGroup } from '../../lib/docs-index.ts';
+import { loadDocSummaries } from '../../lib/docs.ts';
+import { withBase } from '../../lib/paths.ts';
+
+export const getStaticPaths = (async () => {
+  const groups = groupByTag(await loadDocSummaries());
+  return groups.map((group) => ({ params: { tag: group.tag }, props: { group } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  group: TagGroup;
+}
+
+const { tag, pages } = Astro.props.group;
+const count = `${String(pages.length)} ${pages.length === 1 ? 'page' : 'pages'}`;
+---
+
+<StarlightPage
+  frontmatter={{
+    title: `#${tag}`,
+    description: `${count} tagged “${tag}” in the Engineering Wiki.`,
+  }}
+>
+  <p>
+    {count} tagged <strong>{tag}</strong>.
+    <a href={withBase(import.meta.env.BASE_URL, 'tags/')}>See all tags</a>.
+  </p>
+  <DocList pages={pages} />
+</StarlightPage>

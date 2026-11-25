@@ -1,6 +1,7 @@
 ---
 title: Distributed tracing
 description: How traces, spans and context propagation let you follow a request across services.
+tags: [observability, opentelemetry]
 status: draft
 sidebar:
   order: 4

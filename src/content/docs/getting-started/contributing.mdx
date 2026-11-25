@@ -1,6 +1,7 @@
 ---
 title: Contributing
 description: How to add or change pages, including naming, folder structure, frontmatter and templates.
+tags: [documentation, git]
 sidebar:
   order: 3
 ---
@@ -87,14 +88,15 @@ Frontmatter is validated at build time against Starlight's schema plus a few wik
 | `status`        | No       | `draft`, `published` (default) or `deprecated`.                         |
 | `owner`         | No       | Person or team accountable for keeping the page accurate.               |
 | `lastReviewed`  | No       | Date the content was last checked for accuracy, as `YYYY-MM-DD`.        |
+| `tags`          | No       | Up to six lowercase kebab-case topics, e.g. `[security, ci-cd]`.        |
 | `sidebar.order` | No       | Position within its sidebar group (lower numbers first).                |
 | `sidebar.label` | No       | Shorter label for the sidebar if the title is long.                     |
 
 All other [Starlight frontmatter](https://starlight.astro.build/reference/frontmatter/) fields are
 also available.
 
-`status` (when `draft` or `deprecated`), `owner` and `lastReviewed` are shown under the page
-title. Pages not reviewed for 12 months are flagged **Review due**, so set `lastReviewed` whenever
+`status` (when `draft` or `deprecated`), `owner`, `lastReviewed`, an estimated reading time and
+the page's tags are shown under the page title. Pages not reviewed for 12 months are flagged **Review due**, so set `lastReviewed` whenever
 you check a page for accuracy.
 
 ```yaml title="Example frontmatter"
@@ -104,6 +106,7 @@ description: How to instrument services so requests can be followed across bound
 status: draft
 owner: Platform team
 lastReviewed: 2026-11-25
+tags: [observability, opentelemetry]
 sidebar:
   order: 4
 ---
@@ -222,3 +225,13 @@ Reviewers should check that a page:
 - [ ] Labels illustrative content and uses `status: draft` where appropriate.
 - [ ] Uses relative links and passes `pnpm validate`.
 - [ ] Is in the right section with a sensible file name.
+
+## Tags and documentation health
+
+Tags connect pages across sections. Each tag gets its own page listing every page that uses it,
+and [Browse by tag](../../tags/) lists them all. Reuse existing tags where possible rather than
+inventing near-duplicates.
+
+The [Documentation health](../../health/) page is generated on every deploy. It lists drafts,
+pages due for review, and pages without an owner, review date or tags, which makes it a good
+place to start when tidying the wiki.

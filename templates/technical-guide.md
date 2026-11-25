@@ -1,6 +1,7 @@
 ---
 title: How to accomplish a specific task
 description: One sentence describing the outcome the reader will achieve.
+tags: []
 status: draft
 owner: Author or owning team
 lastReviewed: 2026-01-01

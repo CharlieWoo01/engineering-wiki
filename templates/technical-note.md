@@ -1,6 +1,7 @@
 ---
 title: Short, searchable title
 description: One sentence describing what this note captures.
+tags: []
 status: draft
 owner: Author or owning team
 lastReviewed: 2026-01-01

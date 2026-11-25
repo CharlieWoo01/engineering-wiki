@@ -1,6 +1,7 @@
 ---
 title: Runbook introduction
 description: What runbooks are, what makes a good one and how they relate to alerts and incidents.
+tags: [operations, reliability]
 sidebar:
   order: 1
   label: Introduction

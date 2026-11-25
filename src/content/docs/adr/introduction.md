@@ -1,6 +1,7 @@
 ---
 title: ADR introduction
 description: What Architecture Decision Records are, when to write one and how they are managed.
+tags: [decision-making, architecture]
 sidebar:
   order: 1
   label: Introduction

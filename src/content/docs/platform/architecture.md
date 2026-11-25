@@ -1,6 +1,7 @@
 ---
 title: Architecture
 description: Structure for documenting platform architecture using the C4 model and diagrams as code.
+tags: [platform, architecture]
 status: draft
 sidebar:
   order: 2

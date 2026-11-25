@@ -1,6 +1,7 @@
 ---
 title: CI/CD
 description: Continuous integration and delivery practices, illustrated by this wiki's own pipelines.
+tags: [ci-cd, github-actions]
 sidebar:
   order: 1
 ---

@@ -1,6 +1,7 @@
 ---
 title: About the Engineering Wiki
 description: Purpose, principles, technology and visibility limitations of the Engineering Wiki.
+tags: [documentation, security]
 sidebar:
   order: 2
   label: About

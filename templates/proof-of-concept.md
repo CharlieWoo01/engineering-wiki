@@ -1,6 +1,7 @@
 ---
 title: 'PoC: What is being proven'
 description: The question this proof of concept answers and its outcome.
+tags: []
 status: draft
 owner: Author or owning team
 ---

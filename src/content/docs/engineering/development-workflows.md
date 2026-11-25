@@ -1,6 +1,7 @@
 ---
 title: Development workflows
 description: Branching, pull requests, commit conventions and code review practices.
+tags: [git, code-review]
 status: draft
 sidebar:
   order: 5

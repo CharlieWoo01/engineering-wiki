@@ -1,6 +1,7 @@
 ---
 title: Running TypeScript scripts with Node.js type stripping
 description: Run .ts tooling scripts directly with Node.js — no build step or extra dependency.
+tags: [typescript, nodejs]
 lastReviewed: 2026-11-25
 sidebar:
   order: 2

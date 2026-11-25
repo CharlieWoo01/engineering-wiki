@@ -1,6 +1,7 @@
 ---
 title: Tips and tricks
 description: Small productivity tips for working with this wiki and everyday engineering tools.
+tags: [git, developer-experience]
 sidebar:
   order: 5
 ---

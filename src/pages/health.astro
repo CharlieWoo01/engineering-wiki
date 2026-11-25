@@ -1,0 +1,111 @@
+---
+/**
+ * Documentation health: which pages are drafts, overdue for review, unowned
+ * or untagged. Generated at build time, so it is current as of each deploy.
+ */
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Badge } from '@astrojs/starlight/components';
+import DocList from '../components/DocList.astro';
+import { assessHealth, type DocSummary } from '../lib/docs-index.ts';
+import { loadDocSummaries } from '../lib/docs.ts';
+import { REVIEW_INTERVAL_MONTHS } from '../lib/page-meta.ts';
+
+const report = assessHealth(await loadDocSummaries(), new Date());
+const reviewed = (page: DocSummary) =>
+  page.lastReviewed ? `Reviewed ${page.lastReviewed.toISOString().slice(0, 10)}` : undefined;
+
+const stats = [
+  { label: 'Pages', value: report.total },
+  { label: 'Drafts', value: report.drafts.length },
+  { label: 'Review due', value: report.reviewDue.length },
+  { label: 'No review date', value: report.neverReviewed.length },
+  { label: 'No owner', value: report.withoutOwner.length },
+  { label: 'Untagged', value: report.untagged.length },
+];
+const builtAt = new Date().toISOString().slice(0, 10);
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'Documentation health',
+    description: 'Drafts, overdue reviews, unowned and untagged pages across the wiki.',
+    tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
+  }}
+  headings={[
+    { depth: 2, slug: 'review-due', text: 'Review due' },
+    { depth: 2, slug: 'drafts', text: 'Drafts' },
+    { depth: 2, slug: 'deprecated', text: 'Deprecated' },
+    { depth: 2, slug: 'without-an-owner', text: 'Without an owner' },
+    { depth: 2, slug: 'never-reviewed', text: 'Never reviewed' },
+  ]}
+>
+  <p>
+    Generated from page frontmatter on <time datetime={builtAt}>{builtAt}</time>. Pages are due for
+    review {REVIEW_INTERVAL_MONTHS} months after their <code>lastReviewed</code> date.
+  </p>
+
+  <dl class="health-stats">
+    {stats.map(({ label, value }) => (
+      <div>
+        <dt>{label}</dt>
+        <dd>{value}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <h2 id="review-due">
+    Review due <Badge text={String(report.reviewDue.length)} />
+  </h2>
+  <DocList pages={report.reviewDue} detail={reviewed} empty="No pages are overdue for review." />
+
+  <h2 id="drafts">
+    Drafts <Badge text={String(report.drafts.length)} variant="caution" />
+  </h2>
+  <DocList pages={report.drafts} empty="No draft pages." />
+
+  <h2 id="deprecated">
+    Deprecated <Badge text={String(report.deprecated.length)} />
+  </h2>
+  <DocList pages={report.deprecated} empty="No deprecated pages." />
+
+  <h2 id="without-an-owner">
+    Without an owner <Badge text={String(report.withoutOwner.length)} />
+  </h2>
+  <DocList pages={report.withoutOwner} empty="Every page has an owner." />
+
+  <h2 id="never-reviewed">
+    Never reviewed <Badge text={String(report.neverReviewed.length)} />
+  </h2>
+  <DocList pages={report.neverReviewed} empty="Every page has a review date." />
+</StarlightPage>
+
+<style>
+  .health-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .health-stats div {
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.75rem;
+    background: var(--wiki-surface);
+  }
+
+  .health-stats dt {
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+  }
+
+  .health-stats dd {
+    margin: 0.25rem 0 0;
+    margin-inline: 0;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-2xl);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

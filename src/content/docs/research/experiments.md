@@ -1,6 +1,7 @@
 ---
 title: Experiments
 description: A lightweight log of small technical experiments and what they showed.
+tags: [research]
 sidebar:
   order: 4
 ---

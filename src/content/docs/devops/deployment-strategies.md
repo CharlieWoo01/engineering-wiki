@@ -1,6 +1,7 @@
 ---
 title: Deployment strategies
 description: Comparison of rolling, blue-green, canary and feature-flag deployment strategies.
+tags: [deployment, reliability]
 sidebar:
   order: 4
 ---

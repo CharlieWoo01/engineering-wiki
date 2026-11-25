@@ -1,6 +1,7 @@
 ---
 title: Metrics
 description: Metric types, the RED and USE methods, and avoiding high-cardinality labels.
+tags: [observability]
 status: draft
 sidebar:
   order: 3

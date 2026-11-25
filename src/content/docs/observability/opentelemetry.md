@@ -1,6 +1,7 @@
 ---
 title: OpenTelemetry
 description: An introduction to OpenTelemetry signals, the collector and instrumentation approaches.
+tags: [observability, opentelemetry]
 sidebar:
   order: 1
 ---

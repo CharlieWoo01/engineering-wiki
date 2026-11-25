@@ -1,6 +1,7 @@
 ---
 title: Design patterns
 description: A curated index of design and architecture patterns with guidance on when to apply them.
+tags: [architecture, reliability]
 status: draft
 sidebar:
   order: 3

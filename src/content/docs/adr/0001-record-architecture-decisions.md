@@ -1,6 +1,7 @@
 ---
 title: 'ADR-0001: Record architecture decisions'
 description: We will record significant architectural decisions as ADRs in this wiki.
+tags: [decision-making, documentation]
 sidebar:
   order: 3
   label: '0001: Record architecture decisions'

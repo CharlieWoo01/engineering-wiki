@@ -1,6 +1,7 @@
 ---
 title: 'Evaluation: Technology category or problem'
 description: Which options were compared, against what criteria, and the result.
+tags: []
 status: draft
 owner: Author or owning team
 lastReviewed: 2026-01-01

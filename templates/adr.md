@@ -1,6 +1,7 @@
 ---
 title: 'ADR-NNNN: Short noun phrase describing the decision'
 description: One sentence summarising the decision and why it was made.
+tags: []
 status: draft
 owner: Decision owner (person or team)
 sidebar:

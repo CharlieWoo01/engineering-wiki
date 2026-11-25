@@ -1,6 +1,7 @@
 ---
 title: Secrets management
 description: How to store, inject, rotate and detect secrets without committing them to source control.
+tags: [security, github-actions]
 sidebar:
   order: 3
 ---

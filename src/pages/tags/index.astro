@@ -1,0 +1,22 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import TagLinks from '../../components/TagLinks.astro';
+import { groupByTag } from '../../lib/docs-index.ts';
+import { loadDocSummaries } from '../../lib/docs.ts';
+
+const groups = groupByTag(await loadDocSummaries());
+const counts = new Map(groups.map(({ tag, pages }) => [tag, pages.length]));
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'Tags',
+    description: 'Browse wiki pages by cross-cutting topic, such as security or CI/CD.',
+  }}
+>
+  <p>
+    Tags group pages that share a topic across sections. Add tags to a page with the
+    <code>tags</code> frontmatter field.
+  </p>
+  <TagLinks tags={groups.map(({ tag }) => tag)} counts={counts} label="All tags" />
+</StarlightPage>

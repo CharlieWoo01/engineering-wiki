@@ -1,6 +1,7 @@
 ---
 title: Testing strategies
 description: How to choose a proportionate mix of unit, integration, end-to-end and other tests.
+tags: [testing, code-quality]
 status: draft
 sidebar:
   order: 4

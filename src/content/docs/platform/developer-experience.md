@@ -1,6 +1,7 @@
 ---
 title: Developer experience
 description: How to measure and improve the everyday experience of engineers using the platform.
+tags: [platform, developer-experience]
 status: draft
 sidebar:
   order: 4

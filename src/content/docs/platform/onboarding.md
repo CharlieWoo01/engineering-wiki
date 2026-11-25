@@ -1,6 +1,7 @@
 ---
 title: Platform onboarding
 description: Structure for onboarding engineers and teams onto the platform.
+tags: [platform, onboarding]
 status: draft
 sidebar:
   order: 5
