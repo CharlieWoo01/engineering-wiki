@@ -11,12 +11,22 @@ updates:
       prefix: 'chore(deps)'
     groups:
       astro:
-        patterns: ['astro', '@astrojs/*', 'starlight-*', 'astro-*']
+        patterns: ['astro', '@astrojs/*', 'starlight-*', '@expressive-code/*', 'mermaid']
+      fonts:
+        patterns: ['@fontsource-variable/*']
       testing:
         patterns: ['vitest', '@playwright/test', '@axe-core/*']
       linting:
         patterns:
-          ['eslint', '@eslint/*', 'typescript-eslint', 'globals', 'prettier', 'markdownlint-cli2']
+          [
+            'eslint',
+            '@eslint/*',
+            'typescript-eslint',
+            'globals',
+            'prettier',
+            'prettier-plugin-*',
+            'markdownlint-cli2',
+          ]
     ignore:
       # TypeScript is held at 6.x until typescript-eslint and @astrojs/check support 7.x.
       - dependency-name: typescript
