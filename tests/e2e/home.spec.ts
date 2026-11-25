@@ -8,9 +8,22 @@ test.describe('Homepage', () => {
     await expect(page).toHaveTitle(/Engineering Wiki/);
     await expect(page.getByRole('heading', { level: 1, name: 'Engineering Wiki' })).toBeVisible();
 
+    const sections = page.locator('.section-grid');
     for (const section of ['Engineering', 'Platform', 'Observability', 'Runbooks']) {
-      await expect(page.getByRole('link', { name: section, exact: true }).first()).toBeVisible();
+      await expect(
+        sections.getByRole('link', { name: new RegExp(`^${section}\\b`) }),
+      ).toBeVisible();
     }
+  });
+
+  test('section cards show live page counts and open the section', async ({ page }) => {
+    await page.goto('./');
+    const card = page.getByRole('link', { name: /^Architecture Decision Records/ });
+    // Introduction, template and two ADRs.
+    await expect(card).toContainText('4 pages');
+
+    await card.click();
+    await expect(page).toHaveURL(/\/adr\/introduction\/$/);
   });
 
   test('primary call to action opens the introduction', async ({ page }) => {

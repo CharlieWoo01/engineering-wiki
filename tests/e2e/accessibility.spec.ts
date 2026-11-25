@@ -59,6 +59,19 @@ for (const theme of ['light', 'dark'] as const) {
         expect(violations, formatViolations(violations)).toEqual([]);
       });
     }
+
+    test('expanded diagram view has no detectable WCAG 2.2 A/AA violations', async ({ page }) => {
+      await page.goto('observability/opentelemetry/');
+      await page.getByRole('button', { name: 'Expand' }).first().click();
+      const dialog = page.getByRole('dialog');
+      await expect(dialog.locator('svg').first()).toBeVisible();
+
+      const results = await new AxeBuilder({ page })
+        .include('.wiki-diagram-dialog')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+        .analyze();
+      expect(results.violations, formatViolations(results.violations)).toEqual([]);
+    });
   });
 }
 
