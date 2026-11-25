@@ -11,7 +11,16 @@ updates:
       prefix: 'chore(deps)'
     groups:
       astro:
-        patterns: ['astro', '@astrojs/*', 'starlight-*', '@expressive-code/*', 'mermaid']
+        patterns:
+          [
+            'astro',
+            '@astrojs/*',
+            'starlight-*',
+            '@expressive-code/*',
+            'mermaid',
+            'astro-og-canvas',
+            'canvaskit-wasm',
+          ]
       fonts:
         patterns: ['@fontsource-variable/*']
       testing:
