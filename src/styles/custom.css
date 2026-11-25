@@ -31,18 +31,37 @@
 
 /* ---------- Colour (dark is Starlight's default theme) ---------- */
 
+/* Red accent on neutral charcoal greys (Starlight's default greys are
+   blue-tinted, which clashes with red). */
 :root {
-  --sl-color-accent-low: #102a43;
-  --sl-color-accent: #2f80ed;
-  --sl-color-accent-high: #c4dcfb;
-  --wiki-surface: #1b1e26;
+  --sl-color-accent-low: #3b1214;
+  --sl-color-accent: #ef4444;
+  --sl-color-accent-high: #fecaca;
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #ededee;
+  --sl-color-gray-2: #c4c4c8;
+  --sl-color-gray-3: #8e8e96;
+  --sl-color-gray-4: #57575e;
+  --sl-color-gray-5: #37373c;
+  --sl-color-gray-6: #252528;
+  --sl-color-black: #18181b;
+  --wiki-surface: #1f1f23;
 }
 
 :root[data-theme='light'] {
-  --sl-color-accent-low: #e3edfc;
-  --sl-color-accent: #1a5fc4;
-  --sl-color-accent-high: #0e2f63;
-  --wiki-surface: #f7f8fa;
+  --sl-color-accent-low: #fde8e8;
+  --sl-color-accent: #b91c1c;
+  --sl-color-accent-high: #7f1d1d;
+  --sl-color-white: #18181b;
+  --sl-color-gray-1: #252528;
+  --sl-color-gray-2: #37373c;
+  --sl-color-gray-3: #57575e;
+  --sl-color-gray-4: #8e8e96;
+  --sl-color-gray-5: #c4c4c8;
+  --sl-color-gray-6: #ededee;
+  --sl-color-gray-7: #f6f6f7;
+  --sl-color-black: #ffffff;
+  --wiki-surface: #f6f6f7;
 }
 
 /* ---------- Header ---------- */

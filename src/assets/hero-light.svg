@@ -1,58 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 380" fill="none">
   <defs>
     <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-      <path d="M24 0H0v24" stroke="#1a5fc4" stroke-opacity=".08" />
+      <path d="M24 0H0v24" stroke="#b91c1c" stroke-opacity=".08" />
     </pattern>
     <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#d6e6fb" />
-      <stop offset="1" stop-color="#d6e6fb" stop-opacity="0" />
+      <stop offset="0" stop-color="#fde8e8" />
+      <stop offset="1" stop-color="#fde8e8" stop-opacity="0" />
     </linearGradient>
   </defs>
   <rect width="480" height="380" rx="24" fill="url(#grid)" />
   <circle cx="300" cy="170" r="170" fill="url(#glow)" />
 
   <!-- Back page -->
-  <rect x="96" y="58" width="220" height="270" rx="14" fill="#ffffff" stroke="#c4d6ef" transform="rotate(-6 206 193)" />
+  <rect x="96" y="58" width="220" height="270" rx="14" fill="#ffffff" stroke="#efd2d2" transform="rotate(-6 206 193)" />
   <!-- Middle page -->
-  <rect x="120" y="48" width="220" height="270" rx="14" fill="#ffffff" stroke="#c4d6ef" transform="rotate(-2 230 183)" />
+  <rect x="120" y="48" width="220" height="270" rx="14" fill="#ffffff" stroke="#efd2d2" transform="rotate(-2 230 183)" />
   <!-- Front page -->
   <g>
-    <rect x="148" y="40" width="220" height="270" rx="14" fill="#ffffff" stroke="#9dbbe6" />
-    <rect x="170" y="66" width="118" height="12" rx="6" fill="#0e2f63" />
-    <rect x="170" y="92" width="168" height="8" rx="4" fill="#c0c7d4" />
-    <rect x="170" y="108" width="150" height="8" rx="4" fill="#c0c7d4" />
-    <rect x="170" y="124" width="160" height="8" rx="4" fill="#c0c7d4" />
+    <rect x="148" y="40" width="220" height="270" rx="14" fill="#ffffff" stroke="#e3a3a3" />
+    <rect x="170" y="66" width="118" height="12" rx="6" fill="#7f1d1d" />
+    <rect x="170" y="92" width="168" height="8" rx="4" fill="#d4d4d8" />
+    <rect x="170" y="108" width="150" height="8" rx="4" fill="#d4d4d8" />
+    <rect x="170" y="124" width="160" height="8" rx="4" fill="#d4d4d8" />
     <!-- Code block -->
-    <rect x="170" y="148" width="176" height="76" rx="8" fill="#0e2f63" />
+    <rect x="170" y="148" width="176" height="76" rx="8" fill="#7f1d1d" />
     <circle cx="182" cy="160" r="3" fill="#ff6b6b" />
     <circle cx="192" cy="160" r="3" fill="#ffd166" />
     <circle cx="202" cy="160" r="3" fill="#3ecf8e" />
-    <rect x="182" y="174" width="54" height="7" rx="3.5" fill="#7fb0f5" />
-    <rect x="242" y="174" width="70" height="7" rx="3.5" fill="#c4dcfb" />
+    <rect x="182" y="174" width="54" height="7" rx="3.5" fill="#fca5a5" />
+    <rect x="242" y="174" width="70" height="7" rx="3.5" fill="#fecaca" />
     <rect x="194" y="189" width="88" height="7" rx="3.5" fill="#3ecf8e" />
-    <rect x="182" y="204" width="40" height="7" rx="3.5" fill="#7fb0f5" />
+    <rect x="182" y="204" width="40" height="7" rx="3.5" fill="#fca5a5" />
     <!-- Checklist -->
-    <rect x="170" y="240" width="12" height="12" rx="3" fill="#1a5fc4" />
+    <rect x="170" y="240" width="12" height="12" rx="3" fill="#b91c1c" />
     <path d="m173 246 2.5 2.5 4-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-    <rect x="190" y="242" width="110" height="8" rx="4" fill="#c0c7d4" />
-    <rect x="170" y="262" width="12" height="12" rx="3" fill="#1a5fc4" />
+    <rect x="190" y="242" width="110" height="8" rx="4" fill="#d4d4d8" />
+    <rect x="170" y="262" width="12" height="12" rx="3" fill="#b91c1c" />
     <path d="m173 268 2.5 2.5 4-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-    <rect x="190" y="264" width="130" height="8" rx="4" fill="#c0c7d4" />
+    <rect x="190" y="264" width="130" height="8" rx="4" fill="#d4d4d8" />
   </g>
 
   <!-- Diagram card -->
   <g>
-    <rect x="300" y="200" width="150" height="120" rx="14" fill="#ffffff" stroke="#9dbbe6" />
-    <path d="M343 236h30M398 248v26M373 286h-30" stroke="#1a5fc4" stroke-width="2" />
-    <rect x="318" y="224" width="34" height="24" rx="6" fill="#d6e6fb" stroke="#1a5fc4" stroke-width="1.5" />
-    <rect x="378" y="224" width="40" height="24" rx="6" fill="#d6e6fb" stroke="#1a5fc4" stroke-width="1.5" />
-    <rect x="378" y="274" width="40" height="24" rx="6" fill="#1a5fc4" />
-    <rect x="318" y="274" width="34" height="24" rx="6" fill="#d6e6fb" stroke="#1a5fc4" stroke-width="1.5" />
+    <rect x="300" y="200" width="150" height="120" rx="14" fill="#ffffff" stroke="#e3a3a3" />
+    <path d="M343 236h30M398 248v26M373 286h-30" stroke="#b91c1c" stroke-width="2" />
+    <rect x="318" y="224" width="34" height="24" rx="6" fill="#fde8e8" stroke="#b91c1c" stroke-width="1.5" />
+    <rect x="378" y="224" width="40" height="24" rx="6" fill="#fde8e8" stroke="#b91c1c" stroke-width="1.5" />
+    <rect x="378" y="274" width="40" height="24" rx="6" fill="#b91c1c" />
+    <rect x="318" y="274" width="34" height="24" rx="6" fill="#fde8e8" stroke="#b91c1c" stroke-width="1.5" />
   </g>
 
   <!-- Brand badge -->
   <g>
-    <rect x="62" y="236" width="64" height="64" rx="16" fill="#1a5fc4" />
+    <rect x="62" y="236" width="64" height="64" rx="16" fill="#b91c1c" />
     <path d="M86 254 76 268l10 14M102 254l10 14-10 14M98 250l-8 36" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
   </g>
 </svg>

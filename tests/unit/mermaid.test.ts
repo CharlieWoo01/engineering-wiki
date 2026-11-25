@@ -101,6 +101,6 @@ describe('mermaidThemeVariables', () => {
   it('falls back to the default palette when a token is missing', () => {
     const vars = mermaidThemeVariables('light', () => '  ');
     expect(vars['darkMode']).toBe(false);
-    expect(vars['primaryBorderColor']).toBe('#1a5fc4');
+    expect(vars['primaryBorderColor']).toBe('#b91c1c');
   });
 });

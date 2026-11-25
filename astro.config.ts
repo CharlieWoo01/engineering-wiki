@@ -38,7 +38,7 @@ export default defineConfig({
       social: [{ icon: 'github', label: 'GitHub repository', href: REPOSITORY_URL }],
       editLink: { baseUrl: `${REPOSITORY_URL}/edit/main/` },
       lastUpdated: true,
-      head: [{ tag: 'meta', attrs: { name: 'theme-color', content: '#1a5fc4' } }],
+      head: [{ tag: 'meta', attrs: { name: 'theme-color', content: '#b91c1c' } }],
       customCss: [
         // Self-hosted variable fonts: no third-party requests.
         '@fontsource-variable/inter',
