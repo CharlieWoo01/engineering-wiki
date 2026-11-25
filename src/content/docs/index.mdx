@@ -1,0 +1,90 @@
+---
+title: Engineering Wiki
+description: Technical notes, engineering standards, architecture decisions and runbooks, maintained as code.
+template: splash
+editUrl: false
+lastUpdated: false
+hero:
+  tagline: A single, searchable home for engineering knowledge — written in Markdown, reviewed in pull requests and published automatically.
+  actions:
+    - text: Get started
+      link: getting-started/introduction/
+      icon: right-arrow
+    - text: Contribute a page
+      link: getting-started/contributing/
+      icon: pencil
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+## Browse the handbook
+
+<CardGrid>
+  <LinkCard
+    title="Engineering"
+    href="engineering/principles/"
+    description="Principles, coding standards, design patterns, testing and workflows."
+  />
+  <LinkCard
+    title="Platform"
+    href="platform/overview/"
+    description="Platform architecture, infrastructure, developer experience and onboarding."
+  />
+  <LinkCard
+    title="DevOps"
+    href="devops/ci-cd/"
+    description="CI/CD, containers, infrastructure as code and deployment strategies."
+  />
+  <LinkCard
+    title="Observability"
+    href="observability/opentelemetry/"
+    description="OpenTelemetry, logging, metrics, tracing, monitoring and alerting."
+  />
+  <LinkCard
+    title="Security"
+    href="security/principles/"
+    description="Security principles, dependency management and secrets management."
+  />
+  <LinkCard
+    title="Knowledge Base"
+    href="knowledge-base/technical-notes/"
+    description="Technical notes, troubleshooting, useful commands and tips."
+  />
+  <LinkCard
+    title="Research & Development"
+    href="research/proofs-of-concept/"
+    description="Proofs of concept, technology evaluations and experiments."
+  />
+  <LinkCard
+    title="Architecture Decision Records"
+    href="adr/introduction/"
+    description="Significant decisions, their context and their consequences."
+  />
+  <LinkCard
+    title="Runbooks"
+    href="runbooks/introduction/"
+    description="Step-by-step operational procedures for known scenarios."
+  />
+</CardGrid>
+
+## How this wiki works
+
+<CardGrid>
+  <Card title="Documentation as code" icon="document">
+    Every page is a Markdown or MDX file in Git. Changes are proposed, reviewed and validated in
+    pull requests.
+  </Card>
+  <Card title="Validated automatically" icon="approve-check">
+    CI checks formatting, frontmatter, internal links, accessibility and the production build before
+    anything is published.
+  </Card>
+  <Card title="Fast to search" icon="magnifier">
+    Press <kbd>/</kbd> or <kbd>Ctrl</kbd> + <kbd>K</kbd> to search every page. The index is built
+    statically, so no backend is involved.
+  </Card>
+  <Card title="Templates included" icon="puzzle">
+    Start new ADRs, runbooks, technical notes, guides, PoCs and evaluations from consistent
+    templates.
+  </Card>
+</CardGrid>
